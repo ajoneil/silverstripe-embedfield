@@ -13,8 +13,8 @@
 			onfocusout: function() {
 				var newVal = this.val();
 
-				if (newVal != '' && newVal.substring(0, 7) != 'http://') {
-					newVal = 'http://'+newVal;
+				if (newVal != '' && newVal.substring(0, 7) != 'http://' && newVal.substring(0, 8) != 'https://') {
+					newVal = 'https://'+newVal;
 					this.val(newVal);
 				}
 

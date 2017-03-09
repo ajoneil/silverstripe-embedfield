@@ -38,11 +38,11 @@ class EmbedObject extends DataObject {
 		return ($this->ID != 0 || $this->sourceExists);
 	}
 
-	function updateFromURL($sourceURL = null) {
+	function updateFromURL($sourceURL = null, $options = []) {
 		if ($this->SourceURL) {
 			$sourceURL = $this->SourceURL;
 		}
-		$info = Oembed::get_oembed_from_url($sourceURL);
+		$info = Oembed::get_oembed_from_url($sourceURL, false, $options);
 
 		$this->updateFromObject($info);
 	}

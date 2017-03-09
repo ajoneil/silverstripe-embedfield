@@ -3,7 +3,9 @@
  * The form field used for creating EmbedObjects.  Basically you enter a URL and it fetches the oEmbed data from it and stores it in an EmbedObject.
  */
 class EmbedField extends FormField {
-	public $embedType = false;		// video, rich, link, photo
+	private $embedType = false;		// video, rich, link, photo
+	private $oembedOptions = [];
+
 
 	private static $allowed_actions = array(
 		'update'
@@ -25,8 +27,12 @@ class EmbedField extends FormField {
 	 * Restrict what type of embed object
 	 * @param string   The embed type (false (any), video, rich, link or photo)
 	 */
-	function setEmbedType($type = false) {
+	public function setEmbedType($type = false) {
 		$this->embedType = $type;
+	}
+
+	public function setOembedOptions($options) {
+		$this->oembedOptions = $options;
 	}
 
 	public function FieldHolder($properties = array()) {
@@ -105,7 +111,7 @@ class EmbedField extends FormField {
 				// brand new source
 				$object = EmbedObject::create();
 				$object->SourceURL = $sourceURL;
-				$object->updateFromURL();
+				$object->updateFromURL($sourceURL, $this->oembedOptions);
 			}
 		}
 
